@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
+import { Sun } from "lucide-react";
 
 const Login = () => {
   const [username, setUsername] = useState("");
@@ -25,7 +26,10 @@ const Login = () => {
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded shadow-md w-full max-w-sm"
       >
-        <h2 className="text-2xl font-bold mb-4">Login</h2>
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-solar">
+          <Sun className="h-8 w-8 text-white" />
+        </div>
+        <h2 className="text-2xl font-bold mb-4 items-center">Sign in to your account</h2>
         {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
         <input
           type="text"

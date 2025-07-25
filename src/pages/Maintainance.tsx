@@ -229,13 +229,7 @@ const Maintainance = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Maintenance</h1>
         <div className="flex gap-2">
-          <input
-            type="text"
-            placeholder="Search name..."
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="border p-2 rounded w-64"
-          />
+          
           <button
             className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
             onClick={() => setShowCreateModal(true)}

@@ -31,7 +31,7 @@ interface Technician {
 
 const Installations = () => {
   const [installations, setInstallations] = useState<Installations[]>([]);
-  const [name, setName] = useState("");
+  const [status, setStatus] = useState("");
   const [province, setProvince] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -114,10 +114,10 @@ const Installations = () => {
     }
   }, [showCreateModal, showModal]);
 
-  const fetchInstallations = async (page = 1, nameQuery = "") => {
+  const fetchInstallations = async (page = 1, status = "") => {
     try {
       const res = await api.get("/installations", {
-        params: { page, limit: 10, status: nameQuery },
+        params: { page, limit: 10, status: status },
       });
       setInstallations(
         res.data.data.map((inst: any) => ({
@@ -144,8 +144,8 @@ const Installations = () => {
   };
 
   useEffect(() => {
-    fetchInstallations(currentPage, name);
-  }, [currentPage, name, province]);
+    fetchInstallations(currentPage, status);
+  }, [currentPage, status, province]);
 
   const handleDelete = async (installation: Installations) => {
     if (!confirm(`Are you sure you want to delete this installation?`)) {
@@ -154,7 +154,7 @@ const Installations = () => {
 
     try {
       await api.delete(`/installations/${installation.id}`);
-      fetchInstallations(currentPage, name);
+      fetchInstallations(currentPage, status);
     } catch (error) {
       console.error("Error deleting installation:", error);
       alert("Failed to delete installation");
@@ -193,7 +193,7 @@ const Installations = () => {
         efficiency: 0,
         nextMaintenance: new Date(),
       });
-      fetchInstallations(currentPage, name);
+      fetchInstallations(currentPage, status);
       alert("Installation created successfully");
     } catch (error) {
       console.error("Error creating installation:", error);
@@ -216,7 +216,7 @@ const Installations = () => {
           : null,
       });
       setShowModal(false);
-      fetchInstallations(currentPage, name);
+      fetchInstallations(currentPage, status);
       alert("Installation updated successfully");
     } catch (error) {
       console.error("Error updating installation:", error);
@@ -229,13 +229,17 @@ const Installations = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Installations</h1>
         <div className="flex gap-2">
-          <input
-            type="text"
-            placeholder="Search name..."
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+          <select
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
             className="border p-2 rounded w-64"
-          />
+          >
+            <option value="">Select status</option>
+            <option value="planned">Planned</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+            <option value="maintenance">Maintenance</option>
+          </select>
           <button
             className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
             onClick={() => setShowCreateModal(true)}
@@ -596,6 +600,7 @@ const Installations = () => {
                 })
               }
             >
+              <option value="">Select status</option>
               <option value="planned">Planned</option>
               <option value="in-progress">In Progress</option>
               <option value="completed">Completed</option>
