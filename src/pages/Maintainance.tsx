@@ -31,8 +31,6 @@ interface Technician {
 
 const Maintainance = () => {
   const [maintainances, setMaintainances] = useState<Maintainance[]>([]);
-  const [name, setName] = useState("");
-  const [province, setProvince] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [selectedMaintainance, setSelectedMaintainance] =
@@ -229,7 +227,6 @@ const Maintainance = () => {
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Maintenance</h1>
         <div className="flex gap-2">
-          
           <button
             className="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded"
             onClick={() => setShowCreateModal(true)}

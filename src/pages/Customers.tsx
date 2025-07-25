@@ -1,11 +1,8 @@
-// --- Customers.tsx ---
 import { useEffect, useState } from "react";
 import api from "../services/api";
 import Modal from "../components/Modal";
-import Map from "../components/Map";
 import { useNavigate } from "react-router";
 
-// Customer type definition
 interface Customer {
   id: string;
   name: string;
@@ -69,7 +66,6 @@ const Customers = () => {
   const handleDelete = async (customer: Customer) => {
     console.log("Deleting customer with ID:", customer.id);
     console.log("Full customer object:", customer);
-    // Add confirmation dialog
     if (!confirm(`Are you sure you want to delete this customer?`)) {
       return;
     }
@@ -168,10 +164,7 @@ const Customers = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   e.stopPropagation();
-                  console.log(
-                    "Delete button clicked for customer:",
-                    customer.id
-                  ); // Debug log
+                  
                   handleDelete(customer);
                 }}
               >
